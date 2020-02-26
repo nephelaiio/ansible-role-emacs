@@ -11,9 +11,11 @@ platforms:
     image: debian:buster
   - name: bionic
     image: ubuntu:bionic
-  - name: arch
-    image: archlinux/base:latest
 provisioner:
   name: ansible
+  inventory:
+    group_vars:
+      all:
+        ansible_python_interpreter: '/usr/bin/python3'
 verifier:
   name: ansible

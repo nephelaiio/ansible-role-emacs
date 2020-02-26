@@ -27,7 +27,6 @@ This role is tested against the following distributions (docker images):
 
   * Ubuntu Bionic
   * Debian Buster
-  * Arch Linux
 
 You can test the role directly from sources using command ` molecule test `
 
