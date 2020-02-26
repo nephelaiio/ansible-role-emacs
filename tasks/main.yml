@@ -23,6 +23,15 @@
         dest: "~{{ ansible_user_id }}/.emacs.d"
         version: master
 
+    - name: load spacemacs
+      expect:
+        command: emacs --batch -e 'kill-emacs'
+        responses:
+          '*':
+            - ''
+            - ''
+            - ''
+
     - name: configure spacemacs
       blockinfile:
         path: "~{{ ansible_user_id }}/.spacemacs"
