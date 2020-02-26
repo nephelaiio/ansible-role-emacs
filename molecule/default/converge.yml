@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include nephelaiio.emacs"
+      include_role:
+        name: "nephelaiio.emacs"

@@ -1,0 +1,19 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint: |
+  yamllint .
+  ansible-lint .
+platforms:
+  - name: buster
+    image: debian:buster
+  - name: bionic
+    image: ubuntu:bionic
+  - name: arch
+    image: archlinux/base:latest
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

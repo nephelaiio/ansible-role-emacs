@@ -1,0 +1,32 @@
+---
+- name: include variable overrides
+  include_vars: "{{ item }}"
+  vars:
+    include_files:
+      - "vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+      - "vars/{{ ansible_distribution }}.yml"
+      - "vars/{{ ansible_os_family }}.yml"
+      - "vars/main.yml"
+  loop: "{{ q('first_found', include_files, errors='ignore') }}"
+
+- name: install packages
+  package:
+    name: "{{ emacs_packages }}"
+    state: "{{ emacs_packages_state }}"
+  become: yes
+
+- block:
+
+    - name: install spacemacs
+      git:
+        repo: "{{ emacs_spacemacs_repo }}"
+        dest: "~{{ ansible_user_id }}/.emacs.d"
+        version: master
+
+    - name: configure spacemacs
+      blockinfile:
+        path: "~{{ ansible_user_id }}/.spacemacs"
+        marker: "  ;; ANSIBLE MANGED BLOCK: user-config ;;"
+        backup: yes
+
+  when: emacs_spacemacs_config | bool

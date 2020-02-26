@@ -1,0 +1,6 @@
+---
+emacs_packages: emacs
+emacs_packages_state: present
+emacs_spacemacs_install: no
+emacs_spacemacs_repo: https://github.com/syl20bnr/spacemacs
+emacs_spacemacs_config: yes

@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  author: Ted Cook
+  description: An Ansible role to install and configure vim
+  license: MIT
+  min_ansible_version: 2.9
+  platforms:
+    - name: Archlinux
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - bionic
+    - name: Debian
+      versions:
+        - buster
+
+  galaxy_tags:
+    - emacs
+
+dependencies:
+  - role: nephelaiio.git
+    version: 2.1.0

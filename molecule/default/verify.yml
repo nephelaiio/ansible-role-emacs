@@ -1,0 +1,11 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+  - name: run emacs
+    command: emacs -batch --eval="(spacemacs/kill-emacs)"
+    register: emacs_command
+
+  - name: verify execution
+    assert:
+      that: emacs_command.rc == 0
