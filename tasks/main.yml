@@ -15,6 +15,10 @@
     state: "{{ emacs_packages_state }}"
   become: yes
 
+- name: intall pexpect
+  pip:
+    name: pexpect
+
 - block:
 
     - name: install spacemacs
@@ -23,19 +27,11 @@
         dest: "~{{ ansible_user_id }}/.emacs.d"
         version: master
 
-    - name: load spacemacs
-      expect:
-        command: emacs --batch -e 'kill-emacs'
-        responses:
-          '*':
-            - ''
-            - ''
-            - ''
-
     - name: configure spacemacs
-      blockinfile:
-        path: "~{{ ansible_user_id }}/.spacemacs"
-        marker: "  ;; ANSIBLE MANGED BLOCK: user-config ;;"
-        backup: yes
+      template:
+        src: spacemacs
+        dest: "~{{ ansible_user_id }}/.spacemacs"
+        owner: "{{ ansible_user_id }}"
+        mode: 0664
 
   when: emacs_spacemacs_config | bool

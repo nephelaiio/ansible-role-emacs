@@ -3,7 +3,7 @@
   hosts: all
   tasks:
   - name: run emacs
-    command: emacs -batch --eval="(spacemacs/kill-emacs)"
+    command: "emacs --batch -e 'kill-emacs'"
     register: emacs_command
 
   - name: verify execution
