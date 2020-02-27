@@ -13,11 +13,6 @@
   package:
     name: "{{ emacs_packages }}"
     state: "{{ emacs_packages_state }}"
-  become: yes
-
-- name: intall pexpect
-  pip:
-    name: pexpect
 
 - block:
 
