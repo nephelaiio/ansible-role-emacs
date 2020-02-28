@@ -10,7 +10,7 @@ An [ansible role](https://galaxy.ansible.com/nephelaiio/emacs) to install and co
 Execute the following from the command line shell
 
 ```
-curl -s https://raw.githubusercontent.com/nephelaiio/ansible-role-i3/master/install.sh | bash
+curl -s https://raw.githubusercontent.com/nephelaiio/ansible-role-emacs/master/install.sh | bash
 ```
 
 ## Role Variables
