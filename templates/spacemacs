@@ -35,6 +35,7 @@ values."
      rust
      haskell
      javascript
+     typescript
      sql
      python
      ansible

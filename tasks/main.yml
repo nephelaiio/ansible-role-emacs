@@ -13,6 +13,8 @@
   package:
     name: "{{ emacs_packages }}"
     state: "{{ emacs_packages_state }}"
+  tags:
+    - install
 
 - block:
 
@@ -21,6 +23,8 @@
         repo: "{{ emacs_spacemacs_repo }}"
         dest: "~{{ ansible_user_id }}/.emacs.d"
         version: master
+      tags:
+        - configure
 
     - name: configure spacemacs
       template:
@@ -28,5 +32,7 @@
         dest: "~{{ ansible_user_id }}/.spacemacs"
         owner: "{{ ansible_user_id }}"
         mode: 0664
+      tags:
+        - configure
 
   when: emacs_spacemacs_config | bool

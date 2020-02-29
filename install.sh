@@ -64,7 +64,7 @@ if [ -f ../requirements.yml ]; then
     ansible-galaxy install -r ../requirements.yml --force
 fi
 ansible-playbook --become --connection=local -i inventory playbook.yml -t install
-ansible-playbook --connection=local -i inventory playbook.yml ${POSITIONAL[@]}
+ansible-playbook --connection=local -i inventory playbook.yml ${POSITIONAL[@]} -t configure
 popd
 
 # purge temp files
