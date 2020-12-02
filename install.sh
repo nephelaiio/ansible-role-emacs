@@ -65,11 +65,12 @@ if [ -f ../requirements.yml ]; then
     ansible-galaxy install -r ../requirements.yml --force
 fi
 ansible-playbook --become --connection=local -i inventory playbook.yml -t install
-ansible-playbook --connection=local -i inventory playbook.yml "${POSITIONAL[@]}" -t configure -e emacs_doom_configure=yes
+ansible-playbook --connection=local -i inventory playbook.yml "${POSITIONAL[@]}" -t configure -e emacs_doom_config=yes
 popd
 
 # initialize doom emacs
-~/.emacs.d/bin/doom -y install
+~/.emacs.d/bin/doom -y install --no-env --no-fonts
+~/.emacs.d/bin/doom -y env
 
 # purge temp files
 rm -rf "$tmpdir"
