@@ -45,7 +45,7 @@ done
 # verify requirements
 requirements=(ansible-playbook git)
 for r in "${requirements[@]}"; do
-    if ! r_path=$(type -p $r); then
+    if ! type -p "$r"; then
         echo "$r executable not found in path, aborting"
         exit $KO
     fi
@@ -56,7 +56,7 @@ tmpdir="$(mktemp -d)"
 
 # perform local role install
 if [ -z "${LOCAL}" ]; then
-    git clone -q $git_clone_url $tmpdir
+    git clone -q "$git_clone_url" "$tmpdir"
 else
     cp -a . "$tmpdir"
 fi
@@ -72,5 +72,5 @@ popd
 ~/.emacs.d/bin/doom install -y
 
 # purge temp files
-rm -rf $tmpdir
+rm -rf "$tmpdir"
 exit $OK
