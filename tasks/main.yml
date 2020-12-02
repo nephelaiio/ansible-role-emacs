@@ -51,6 +51,11 @@
         depth: 1
         version: develop
 
+    - name: install ripgrep
+      package:
+        name:
+          - ripgrep
+
   when: emacs_doom_config | bool
   tags:
     - configure
