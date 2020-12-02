@@ -16,6 +16,13 @@
   tags:
     - install
 
+- name: check configuration settings
+  fail:
+    msg: only one of emacs_spacemacs_config or emacs_doom_config can be set
+  when:
+    - emacs_spacemacs_config | bool
+    - emacs_doom_config | bool
+
 - block:
 
     - name: install spacemacs
@@ -23,8 +30,6 @@
         repo: "{{ emacs_spacemacs_repo }}"
         dest: "~{{ ansible_user_id }}/.emacs.d"
         version: master
-      tags:
-        - configure
 
     - name: configure spacemacs
       template:
@@ -32,7 +37,20 @@
         dest: "~{{ ansible_user_id }}/.spacemacs"
         owner: "{{ ansible_user_id }}"
         mode: 0664
-      tags:
-        - configure
 
   when: emacs_spacemacs_config | bool
+  tags:
+    - configure
+
+- block:
+
+    - name: install doom emacs repo
+      git:
+        repo: "{{ emacs_doom_repo }}"
+        dest: "~{{ ansible_user_id }}/.emacs.d"
+        depth: 1
+        version: develop
+
+  when: emacs_doom_config | bool
+  tags:
+    - configure

@@ -11,7 +11,7 @@ pushd () {
 }
 
 popd () {
-    command popd "$@" > /dev/null
+    command popd > /dev/null
 }
 
 # usage helper
@@ -43,7 +43,7 @@ done
 
 # verify requirements
 requirements=(ansible-playbook git)
-for r in ${requirements[@]}; do
+for r in "${requirements[@]}"; do
     if ! r_path=$(type -p $r); then
         echo "$r executable not found in path, aborting"
         exit $KO
@@ -57,15 +57,18 @@ tmpdir="$(mktemp -d)"
 if [ -z "${LOCAL}" ]; then
     git clone -q $git_clone_url $tmpdir
 else
-    cp -a . $tmpdir
+    cp -a . "$tmpdir"
 fi
-pushd $tmpdir/install
+pushd "$tmpdir/install" || exit
 if [ -f ../requirements.yml ]; then
     ansible-galaxy install -r ../requirements.yml --force
 fi
 ansible-playbook --become --connection=local -i inventory playbook.yml -t install
-ansible-playbook --connection=local -i inventory playbook.yml ${POSITIONAL[@]} -t configure
-popd
+ansible-playbook --connection=local -i inventory playbook.yml "${POSITIONAL[@]}" -t configure -e emacs_doom_configure=yes
+popd || exit
+
+# initialize doom emacs
+~/.emacs.d/bin/doom install -y
 
 # purge temp files
 rm -rf $tmpdir

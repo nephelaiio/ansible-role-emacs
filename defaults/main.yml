@@ -1,6 +1,7 @@
 ---
 emacs_packages: emacs
 emacs_packages_state: present
-emacs_spacemacs_install: no
 emacs_spacemacs_repo: https://github.com/syl20bnr/spacemacs
-emacs_spacemacs_config: yes
+emacs_spacemacs_config: no
+emacs_doom_repo: https://github.com/hlissner/doom-emacs
+emacs_doom_config: no
