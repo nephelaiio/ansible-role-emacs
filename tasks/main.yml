@@ -50,12 +50,14 @@
         dest: "~{{ ansible_user_id }}/.emacs.d"
         depth: 1
         version: develop
+      tags:
+        - configure
 
     - name: install ripgrep
       package:
         name:
           - ripgrep
+      tags:
+        - install
 
   when: emacs_doom_config | bool
-  tags:
-    - configure
