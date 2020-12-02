@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 git_clone_url=https://github.com/nephelaiio/ansible-role-emacs.git
 OK=0
@@ -59,13 +60,13 @@ if [ -z "${LOCAL}" ]; then
 else
     cp -a . "$tmpdir"
 fi
-pushd "$tmpdir/install" || exit
+pushd "$tmpdir/install"
 if [ -f ../requirements.yml ]; then
     ansible-galaxy install -r ../requirements.yml --force
 fi
 ansible-playbook --become --connection=local -i inventory playbook.yml -t install
 ansible-playbook --connection=local -i inventory playbook.yml "${POSITIONAL[@]}" -t configure -e emacs_doom_configure=yes
-popd || exit
+popd
 
 # initialize doom emacs
 ~/.emacs.d/bin/doom install -y
