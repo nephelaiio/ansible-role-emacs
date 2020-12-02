@@ -69,7 +69,7 @@ ansible-playbook --connection=local -i inventory playbook.yml "${POSITIONAL[@]}"
 popd
 
 # initialize doom emacs
-~/.emacs.d/bin/doom install -y
+~/.emacs.d/bin/doom -y install
 
 # purge temp files
 rm -rf "$tmpdir"
