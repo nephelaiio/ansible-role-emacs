@@ -50,14 +50,14 @@
         dest: "~{{ ansible_user_id }}/.emacs.d"
         depth: 1
         version: develop
-      tags:
-        - configure
 
-    - name: install ripgrep
-      package:
-        name:
-          - ripgrep
-      tags:
-        - install
+    - name: configure doom emacs
+      template:
+        src: doom
+        dest: "~{{ ansible_user_id }}/.doom.d/config.el"
+        owner: "{{ ansible_user_id }}"
+        mode: 0664
 
   when: emacs_doom_config | bool
+  tags:
+    - configure

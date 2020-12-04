@@ -324,8 +324,7 @@ you should place your code here."
   (setq projectile-git-submodule-command nil)
   (setq helm-make-list-target-method 'qp)
   (setq helm-make-sort-targets t)
-  (setq ansible-vault-dir "~/.ansible_vault")
-  (setq ansible-inventory-dir "./inventory/")
+  (setq ansible-vault-dir "{{ emacs_ansible_vault_dir }}")
   (defun ansible-vault-insert-secret ()
     "Insert xkcd secret"
     (interactive)

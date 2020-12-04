@@ -1,9 +1,9 @@
 # nephelaiio.emacs
 
-[![Build Status](https://travis-ci.org/nephelaiio/ansible-role-emacs.svg?branch=master)](https://travis-ci.org/nephelaiio/ansible-role-emacs)
+[![Build Status](https://github.com/nephelaiio/ansible-role-emacs/workflows/.github/workflows/main.yml/badge.svg)](https://travis-ci.org/nephelaiio/ansible-role-emacs)
 [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-systemd--service-blue.svg)](https://galaxy.ansible.com/nephelaiio/emacs/)
 
-An [ansible role](https://galaxy.ansible.com/nephelaiio/emacs) to install and configure vim
+An [ansible role](https://galaxy.ansible.com/nephelaiio/emacs) to install and configure emacs
 
 ## Local install
 
@@ -34,6 +34,7 @@ Please make sure your environment has [docker](https://www.docker.com) installed
 This role is tested against the following distributions (docker images):
 
   * Ubuntu Bionic
+  * Ubuntu Focal
   * Debian Buster
 
 You can test the role directly from sources using command ` molecule test `
