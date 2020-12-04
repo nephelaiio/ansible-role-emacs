@@ -33,7 +33,6 @@ Please make sure your environment has [docker](https://www.docker.com) installed
 
 This role is tested against the following distributions (docker images):
 
-  * Ubuntu Bionic
   * Ubuntu Focal
   * Debian Buster
 
