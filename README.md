@@ -1,6 +1,6 @@
 # nephelaiio.emacs
 
-[![Build Status](https://github.com/nephelaiio/ansible-role-emacs/workflows/.github/workflows/main.yml/badge.svg)](https://travis-ci.org/nephelaiio/ansible-role-emacs)
+[![Build Status](https://github.com/nephelaiio/ansible-role-emacs/workflows/CI/badge.svg)](https://github.com/nephelaiio/ansible-role-emacs/actions)
 [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-systemd--service-blue.svg)](https://galaxy.ansible.com/nephelaiio/emacs/)
 
 An [ansible role](https://galaxy.ansible.com/nephelaiio/emacs) to install and configure emacs
