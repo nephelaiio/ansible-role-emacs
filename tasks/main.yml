@@ -9,6 +9,13 @@
       - "vars/main.yml"
   loop: "{{ q('first_found', include_files, errors='ignore') }}"
 
+- name: enable ubuntu universe repository
+  command: add-apt-repository universe
+  when: (ansible_distribution | lower) == 'ubuntu'
+  changed_when: false
+  tags:
+    - skip_ansible_lint
+
 - name: install packages
   package:
     name: "{{ emacs_packages }}"
