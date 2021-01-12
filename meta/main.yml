@@ -17,5 +17,5 @@ galaxy_info:
     - emacs
 
 dependencies:
-  - src: nephelaiio.git
-  - src: nephelaiio.pip
+  - role: nephelaiio.git
+  - role: nephelaiio.pip
