@@ -61,6 +61,9 @@ else
     cp -a . "$tmpdir"
 fi
 pushd "$tmpdir/install"
+if [ ! -d ~/.doom.d ]; then
+    mkdir ~/.doom.d
+fi
 ansible-galaxy role install nephelaiio.emacs --force
 ansible-playbook --become --connection=local -i inventory playbook.yml -t install
 ansible-playbook --connection=local -i inventory playbook.yml "${POSITIONAL[@]}" -t configure -e emacs_doom_config=yes
