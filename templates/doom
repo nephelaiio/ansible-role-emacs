@@ -54,6 +54,22 @@
 ;; they are implemented.
 (setq ansible-vault-dir "{{ emacs_ansible_vault_dir }}")
 
+(defun xkpass-insert-secret ()
+  "Insert xkcd secret"
+  (interactive)
+  (push-mark)
+  (forward-line)
+  (setq secret_start (point))
+  (exchange-point-and-mark)
+  (pop-mark)
+  (setq xksecret (format "%02d_%s_%02d" (random 100) (shell-command-to-string "printf %s \"$(xkcdpass -d _ -C alternating -n 3)\"") (random 100)))
+  (insert (format " %s" xksecret))
+  (delete-blank-lines)
+  (push-mark)
+  (indent-region secret_start (point))
+  (exchange-point-and-mark)
+  (pop-mark))
+
 (defun ansible-vault-insert-secret ()
   "Insert xkcd secret"
   (interactive)
@@ -129,5 +145,6 @@
       (:prefix "o"
        :desc "Vault existing secret" "e" #'ansible-vault-encrypt-secret
        :desc "Generate vaulted secret" "g" #'ansible-vault-insert-secret
+       :desc "Generate plaintext secret" "i" #'xkpass-insert-secret
        :desc "Seal buffer" "s" #'kubeseal-seal-buffer
        :desc "Unseal buffer" "u" #'kubeseal-unseal-buffer))
