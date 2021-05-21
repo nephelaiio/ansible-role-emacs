@@ -106,8 +106,28 @@
   (insert-file-contents tmpfile)
   (delete-file tmpfile))
 
+(defun kubeseal-unseal-buffer ()
+  "Seal buffer using kube-seal"
+  (interactive)
+  (setq tmprawfile (make-temp-file "sealedsecret"))
+  (setq tmpkeyfile (make-temp-file "sealedsecret"))
+  (shell-command-to-string (format "kubectl get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > %s"
+                                   tmpkeyfile))
+  (shell-command-to-string (format "kubeseal --recovery-unseal --recovery-private-key %s -o yaml < %s > %s"
+                                   tmpkeyfile
+                                   (buffer-file-name)
+                                   tmprawfile))
+  (erase-buffer)
+  (insert "---")
+  (newline)
+  (insert-file-contents tmprawfile)
+  (delete-file tmpkeyfile)
+  (delete-file tmprawfile))
+
+
 (map! :leader
       (:prefix "o"
        :desc "Vault existing secret" "e" #'ansible-vault-encrypt-secret
        :desc "Generate vaulted secret" "g" #'ansible-vault-insert-secret
-       :desc "Seal buffer" "s" #'kubeseal-seal-buffer))
+       :desc "Seal buffer" "s" #'kubeseal-seal-buffer
+       :desc "Unseal buffer" "u" #'kubeseal-unseal-buffer))
