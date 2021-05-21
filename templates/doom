@@ -104,7 +104,7 @@
   (insert "---")
   (newline)
   (insert-file-contents tmpfile)
-  (delete-fil tmpfile))
+  (delete-file tmpfile))
 
 (map! :leader
       (:prefix "o"
