@@ -95,7 +95,19 @@
     (exchange-point-and-mark)
     (pop-mark)))
 
+(defun kubeseal-seal-buffer ()
+  "Seal buffer using kube-seal"
+  (interactive)
+  (setq tmpfile (make-temp-file "sealedsecret"))
+  (shell-command-to-string (format "kubeseal -o yaml < %s > %s" (buffer-file-name) tmpfile))
+  (erase-buffer)
+  (insert "---")
+  (newline)
+  (insert-file-contents tmpfile)
+  (delete-fil tmpfile))
+
 (map! :leader
       (:prefix "o"
        :desc "Vault existing secret" "e" #'ansible-vault-encrypt-secret
-       :desc "Generate vaulted secret" "g" #'ansible-vault-insert-secret))
+       :desc "Generate vaulted secret" "g" #'ansible-vault-insert-secret
+       :desc "Seal buffer" "s" #'kubeseal-seal-buffer))
