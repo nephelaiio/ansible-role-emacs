@@ -130,8 +130,13 @@
 (defun kubeseal-seal-buffer ()
   "Seal buffer using kube-seal"
   (interactive)
+  (setq kubeconfig (completing-read "config: " (directory-files kube-config-dir nil "^config\.")))
   (setq tmpfile (make-temp-file "sealedsecret"))
-  (shell-command-to-string (format "kubeseal -o yaml < %s > %s" (buffer-file-name) tmpfile))
+  (shell-command-to-string (format "kubeseal --kubeconfig %s/%s -o yaml < %s > %s"
+                                   kube-config-dir
+                                   kubeconfig
+                                   (buffer-file-name)
+                                   tmpfile))
   (erase-buffer)
   (insert "---")
   (newline)
@@ -143,9 +148,14 @@
   (interactive)
   (setq tmprawfile (make-temp-file "sealedsecret"))
   (setq tmpkeyfile (make-temp-file "sealedsecret"))
-  (shell-command-to-string (format "kubectl get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > %s"
+  (setq kubeconfig (completing-read "config: " (directory-files kube-config-dir nil "^config\.")))
+  (shell-command-to-string (format "kubectl --kubeconfig %s/%s get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > %s"
+                                   kube-config-dir
+                                   kubeconfig
                                    tmpkeyfile))
-  (shell-command-to-string (format "kubeseal --recovery-unseal --recovery-private-key %s -o yaml < %s > %s"
+  (shell-command-to-string (format "kubeseal --kubeconfig %s/%s --recovery-unseal --recovery-private-key %s -o yaml < %s > %s"
+                                   kube-config-dir
+                                   kubeconfig
                                    tmpkeyfile
                                    (buffer-file-name)
                                    tmprawfile))
@@ -155,7 +165,6 @@
   (insert-file-contents tmprawfile)
   (delete-file tmpkeyfile)
   (delete-file tmprawfile))
-
 
 (map! :leader
       (:prefix "o"
