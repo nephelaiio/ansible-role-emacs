@@ -10,3 +10,4 @@ emacs_ansible_vault_dir: ~/.ansible_vault
 emacs_spacemacs_config: no
 emacs_doom_repo: https://github.com/hlissner/doom-emacs
 emacs_doom_config: no
+emacs_config_force: no

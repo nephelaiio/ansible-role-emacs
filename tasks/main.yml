@@ -34,6 +34,7 @@
         dest: "~{{ ansible_user_id }}/.spacemacs"
         owner: "{{ ansible_user_id }}"
         mode: 0664
+        force: "{{ emacs_config_force }}"
 
   when: emacs_spacemacs_config | bool
   tags:
@@ -54,6 +55,7 @@
         dest: "~{{ ansible_user_id }}/.doom.d/config.el"
         owner: "{{ ansible_user_id }}"
         mode: 0664
+        force: "{{ emacs_config_force }}"
 
   when: emacs_doom_config | bool
   tags:
