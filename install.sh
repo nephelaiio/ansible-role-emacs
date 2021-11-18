@@ -4,6 +4,9 @@ set -e
 git_clone_url=https://github.com/nephelaiio/ansible-role-emacs.git
 OK=0
 KO=1
+if [ -z "$EMACS_INSTALL" ]; then
+    EMACS_INSTALL="$OK"
+fi
 
 # redefine pushd/popd
 # see: https://stackoverflow.com/questions/25288194/dont-display-pushd-popd-stack-across-several-bash-scripts-quiet-pushd-popd
@@ -65,7 +68,9 @@ if [ ! -d ~/.doom.d ]; then
     mkdir ~/.doom.d
 fi
 ansible-galaxy role install nephelaiio.emacs --force
-ansible-playbook --become --connection=local -i inventory playbook.yml -t install
+if [[ "$EMACS_INSTALL" == "$OK" ]]; then
+    ansible-playbook --become --connection=local -i inventory playbook.yml -t install
+fi
 ansible-playbook --connection=local -i inventory playbook.yml "${POSITIONAL[@]}" -t configure -e emacs_doom_config=yes
 popd
 
